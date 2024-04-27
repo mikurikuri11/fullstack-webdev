@@ -15,5 +15,17 @@
  FALSE
 */
 
-$a = 0;
+$a = "0";
 $b = 1;
+
+// if (isset($a)) {
+//     echo '$a is set';
+// } else {
+//     echo '$a is not set';
+// }
+
+if (empty($a)) {
+    echo '$a is empty';
+} else {
+    echo '$a is not empty';
+}
