@@ -1,10 +1,23 @@
-<?php 
+<?php
 class Person
 {
     private $name;
     public $age;
 
+    function __construct($name, $age)
+    {
+        $this->name = $name;
+        $this->age = $age;
+    }
+
     function hello() {
         echo 'hello, ' . $this->name;
     }
 }
+
+$bob = new Person('Bob', 18);
+
+var_dump($bob);
+echo $bob->age;
+echo "<br/>";
+echo $bob->hello();

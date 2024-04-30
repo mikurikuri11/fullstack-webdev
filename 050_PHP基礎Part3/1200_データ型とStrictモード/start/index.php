@@ -2,7 +2,8 @@
 /**
  * データ型とStrictモード
  */
-function add1 (int $val) {
-    return $val + 1;
+function add1 (int $val): string {
+    return (string) ($val + 1);
 }
 $result = add1(1);
+var_dump($result);

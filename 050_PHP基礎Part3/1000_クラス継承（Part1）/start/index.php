@@ -4,7 +4,7 @@
  */
 class Person
 {
-    private $name;
+    protected $name;
     public $age;
     public const WHERE = 'Earth';
 
@@ -24,8 +24,16 @@ class Person
     }
 }
 
-$bob = new Person('Bob', 18);
-$bob->hello();
+class Japanese extends Person {
+    function hello() {
+        echo 'こんにちは、 ' . $this->name;
+        return $this;
+    }
+}
+
+
+$taro = new Japanese('太郎', 18);
+$taro->hello();
 // $bob->hello()->bye();
 
 // $tim = new Person('Tim', 32);

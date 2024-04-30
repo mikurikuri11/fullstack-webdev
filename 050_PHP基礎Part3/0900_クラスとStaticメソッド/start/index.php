@@ -6,6 +6,7 @@ class Person
 {
     private $name;
     public $age;
+    public static $whereTolive = 'earth';
 
     function __construct($name, $age)
     {
@@ -15,17 +16,19 @@ class Person
 
     function hello() {
         echo 'hello, ' . $this->name;
+        static::bye();
         return $this;
     }
 
-    function bye() {
-        echo 'bye, ' . $this->name;
-        return $this;
+    static function bye() {
+        echo 'bye';
     }
 }
 
 $bob = new Person('Bob', 18);
-$bob->hello()->bye();
+// Person::bye();
+// $bob->hello()->bye();
 
-// $tim = new Person('Tim', 32);
-// $tim->hello();
+$tim = new Person('Tim', 32);
+$tim->hello();
+echo Person::$whereTolive;

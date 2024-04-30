@@ -2,7 +2,7 @@
 /**
  * クラス継承
  */
-class Person
+abstract class Person
 {
     private $name;
     public $age;
@@ -14,13 +14,25 @@ class Person
         $this->age = $age;
     }
 
-    function hello() {
+    final function hello() {
         echo 'hello, ' . $this->name;
         return $this;
     }
 
     static function bye() {
         echo 'bye';
+    }
+
+    abstract function say();
+}
+
+class Japanese extends Person
+{
+    // function hello()
+    // {
+    // }
+    function say() {
+        echo "Yes!!";
     }
 }
 
