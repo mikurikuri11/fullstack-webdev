@@ -28,21 +28,22 @@ class MyFileWriter
 
     function append($content)
     {
-        $this->content .= $content;
+        $this->content .= $this->format($content);
         return $this;
     }
 
     function newline()
     {
-        return $this->format(PHP_EOL);
+        $this->content .= PHP_EOL;
+        return $this;
     }
 
-    function format($content)
+    protected function format($content)
     {
         return $content;
     }
 
-    function commit($flag = null)
+    function commit($flag)
     {
         file_put_contents($this->filename, $this->content, $flag);
         $this->content = '';
@@ -57,7 +58,13 @@ class MyFileWriter
 $time_str = date('Y/m/d H:i:s');
 sprintf('%s %s', $time_str, '文字列');
 
-/* クラスの呼び出し方は以下のようにするものとします。
+class LogWriter extends MyFileWriter
+{
+    protected function format($content) {
+        $time_str = date('Y/m/d H:i:s');
+        return sprintf('%s %s', $time_str, $content);
+    }
+}
 
 $info = new LogWriter('info.log');
 $error = new LogWriter('error.log');
@@ -69,5 +76,3 @@ $info->append('これは通常ログです。')
 $error->append('これはエラーログです。')
     ->newline()
     ->commit(LogWriter::APPEND);
-
-*/

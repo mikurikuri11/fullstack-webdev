@@ -22,7 +22,38 @@ $content = 'Good night, Bob.'; // append
 file_put_contents('sample.txt', $content, FILE_APPEND);
 $content = '';
 
-/* クラスの呼び出し方は以下のようにするものとします。
+// クラスの呼び出し方は以下のようにするものとします。
+
+class MyFileWriter
+{
+    private $filename;
+    private $content = "";
+    public const APPEND = FILE_APPEND;
+
+    function __construct($filename)
+    {
+        $this->filename = $filename;
+    }
+
+    function append($content) {
+        $this->content .= $content;
+        return $this;
+    }
+
+    function newline() {
+        return $this->append(PHP_EOL);
+    }
+
+    function commit($flag = null) {
+        if ($flag) {
+            file_put_contents($this->filename, $this->content, $flag);
+        } else {
+            file_put_contents($this->filename, $this->content);
+        }
+        $this->content = "";
+        return $this;
+    }
+}
 
 $file = new MyFileWriter('sample.txt');
 $file->append('Hello, Bob.')
@@ -33,5 +64,3 @@ $file->append('Hello, Bob.')
     ->commit()
     ->append('Good night, Bob.')
     ->commit(MyFileWriter::APPEND);
-
-*/
