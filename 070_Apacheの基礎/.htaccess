@@ -7,5 +7,6 @@ RewriteEngine On
 RewriteBase /apache/rewrite-test/
 # RewriteRule rewrite-test/index.html /apache/rewrite-test/tmp.html
 # RewriteRule rewrite-test/index.html - [F]
-# RewriteRule rewrite-test/imgs/150.jpg /apache/rewrite-test/imgs/150.png
-RewriteRule rewrite-test/sub1/ /sub2/
+# RewriteRule sub1 /sub2/
+RewriteRule rewrite-test/imgs/(\d{3}).jpg /apache/rewrite-test/imgs/$1.png
+RewriteRule rewrite-test/sub1/(.+\.html) sub2/$1
