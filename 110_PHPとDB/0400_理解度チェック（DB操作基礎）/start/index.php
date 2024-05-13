@@ -19,6 +19,19 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  * 問１：
  * 店舗Cの全ての商品の在庫数に+10を足し合わせる
  */
+// select * from test_phpdb.txn_stocks ts where shop_id = 3
+
+// try {
+//   $result = $conn->exec(
+//     'update txn_stocks set amount = amount + 10
+//     where shop_id = 3'
+//   );
+// } catch (Error $e) {
+//   echo '例外処理です。<br>';
+//   echo $e->getMessage();
+// } finally {
+//   echo '終了です。<br>';
+// }
 
 
 /**
@@ -30,8 +43,32 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  * pref_id: 4
  */
 
+// try {
+//   $result = $conn->exec(
+//     "insert into mst_shops(name, pref_id, updated_by)
+//     values ('店舗D', 4, 'mikuriya')" );
+// } catch (Error $e) {
+//   echo '例外処理です。<br>';
+//   echo $e->getMessage();
+// } finally {
+//   echo '終了です。<br>';
+// }
+
 /**
  * 問３：
  * 店舗Aの椅子の在庫数を取得してください。
  */
 
+try {
+  $result = $conn->query(
+    "select amount from txn_stocks ts
+    where shop_id = 1 and product_id = 2"
+  )->fetch()['amount'];
+
+  echo $result;
+} catch (Error $e) {
+  echo '例外処理です。<br>';
+  echo $e->getMessage();
+} finally {
+  echo '終了です。<br>';
+}
