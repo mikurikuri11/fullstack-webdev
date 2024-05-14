@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 理解度チェック（画面とDB操作クラス）
  * 
@@ -19,6 +20,47 @@
  * DB操作で例外が発生した場合
  * -> 時間をおいて再度お試しください。
  */
+
+require_once 'datasource.php';
+
+use db\DataSource;
+
+try {
+
+    if (isset($_POST['product_id'])) {
+        $db = new DataSource();
+        $product_id = $_POST['product_id'];
+
+        $db->begin();
+
+        $sql = '
+        select name, delete_flg from mst_products mp
+        where mp.id = :product_id
+        ';
+
+        $result = $db->selectOne(
+            $sql,
+            [
+                ':product_id' => $product_id
+            ]
+        );
+
+        $db->commit();
+    }
+
+    if (!empty($result) && $result['delete_flg'] !== 1 ) {
+        echo "商品名は[{$result['name']}]です。";
+    } else {
+        echo "一致する商品が見つかりません。";
+    }
+
+} catch (PDOException $e) {
+
+    echo '時間をおいて再度お試しください。<br>';
+    echo $e->getMessage();
+    $db->rollBack();
+}
+
 ?>
 
 <form action="<?php $_SERVER['REQUEST_URI']; ?>" method="POST">

@@ -7,9 +7,10 @@ class DataSource {
 
     private $conn;
     private $sqlResult;
+    public const CLS = 'cls';
 
     public function __construct($host = 'localhost', $port = '8889', $dbName = 'test_phpdb', $username = 'test_user', $password = 'pwd') {
-        
+
         $dsn = "mysql:host={$host};port={$port};dbname={$dbName};";
         $this->conn = new PDO($dsn, $username, $password);
         $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -18,9 +19,13 @@ class DataSource {
 
     }
 
-    public function select($sql = "", $params = []) {
+    public function select($sql = "", $params = [], $type = '', $cls = '') {
         $stmt = $this->executeSql($sql, $params);
-        return $stmt->fetchAll();
+        if ($type === static::CLS) {
+            return $stmt->fetchAll(PDO::FETCH_CLASS, $cls);
+        } else {
+            return $stmt->fetchAll();
+        }
     }
 
     public function execute($sql = "", $params = []) {
@@ -28,8 +33,8 @@ class DataSource {
         return  $this->sqlResult;
     }
 
-    public function selectOne($sql = "", $params = []) {
-        $result = $this->select($sql, $params);
+    public function selectOne($sql = "", $params = [], $type = '', $cls = '') {
+        $result = $this->select($sql, $params, $type, $cls);
         return count($result) > 0 ? $result[0] : false;
     }
 
@@ -50,5 +55,5 @@ class DataSource {
         $this->sqlResult = $stmt->execute($params);
         return $stmt;
     }
-    
+
 }
