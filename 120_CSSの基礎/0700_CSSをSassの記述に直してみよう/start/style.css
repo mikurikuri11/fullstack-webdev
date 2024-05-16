@@ -4,17 +4,15 @@
 
 .btn {
   background-color: white;
-  color: black;
-  border: 1px solid black;
+  color: cBlack;
+  border: 1px solid cBlack;
   padding: 10px 40px;
   margin: 50px 0;
   font-weight: 600;
   cursor: pointer;
-  transition: color 0.3s ease 1s,
-              background-color 0.3s ease 2s;
+  transition: all 0.3;
 }
-
 .btn:hover {
-  background-color: black;
+  background-color: cBlack;
   color: white;
-}
+}/*# sourceMappingURL=style.css.map */

@@ -6,15 +6,21 @@
 
 .child {
   background-color: orange;
-  width: 100px;
-  height: 100px;
+  // width: 100px;
+  // height: 100px;
   font-weight: 600;
+  flex-grow: 1;
+}
+.child.v1 {
+  flex-basis: 300px;
 }
 .child.v2 {
   background-color: palevioletred;
+  flex-grow: 2;
 }
 .child.v3 {
   background-color: rebeccapurple;
+  flex-grow: 3;
 }
 
 /**
@@ -23,6 +29,7 @@
 /* インライン要素に対して */
 // .parent {
 //   text-align: left;
+//   letter-spacing: -6px;
 // }
 // .child {
 //     display: inline-block;
@@ -48,9 +55,10 @@
 //   transform: translate(-50%, -50%);
 // }
 
-// .parent {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: flex-start;
-//   align-items: flex-end;
-// }
+.parent {
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  // align-items: center;
+}
